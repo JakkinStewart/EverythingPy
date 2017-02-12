@@ -2,27 +2,34 @@
 # Written by Joshua Jordi
 
 import sqlite3
+import os
 
-
+if (os.path.isfile('db.sqlite')):
+    os.remove('db.sqlite')
 
 sqlite_file = './db.sqlite'
 
 conn = sqlite3.connect(sqlite_file)
 c = conn.cursor()
-table_1 = 'fileName'
-table_2 = 'fileLoc'
 
-new_field = 'temp'
-field_type = 'char'
+table1 = 'file'
 
-#c.execute("create table {tn} ({nf} {ft})"\
-#          .format(tn=table_1, nf=new_field, ft=field_type))
+field0 = 'priKey'
+field1 = 'filePath'
+field2 = 'fileName'
 
-#c.execute('create table {tn} ({nf} {ft})'\
-#          .format(tn=table_2, nf=new_field, ft=field_type))
+keyType = 'INTEGER'
+fieldType = 'TEXT'
 
-c.execute('select * from fileName')
+c.execute('create table {tn} ({nf} {ft})'\
+          .format(tn=table1, nf=field0, ft=keyType))
+
+c.execute('alter table {tn} add column "{cn}" {ct}'\
+          .format(tn=table1, cn=field1, ct=fieldType))
+
+c.execute('alter table {tn} add column "{cn}" {ct}'\
+          .format(tn=table1, cn=field2, ct=fieldType))
+
 
 conn.commit()
 conn.close()
-

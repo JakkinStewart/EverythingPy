@@ -2,10 +2,10 @@
 # Written by Joshua Jordi
 
 import sqlite3
-import os
+import subprocess
 
-if (os.path.isfile('db.sqlite')):
-    os.remove('db.sqlite')
+if (subprocess.getstatusoutput('test -e db.sqlite') != 0):
+    subprocess.os.remove('db.sqlite')
 
 sqlite_file = './db.sqlite'
 
@@ -30,6 +30,9 @@ c.execute('alter table {tn} add column "{cn}" {ct}'\
 c.execute('alter table {tn} add column "{cn}" {ct}'\
           .format(tn=table1, cn=field2, ct=fieldType))
 
+#result = subprocess.check_output('find ./', shell=True)
+
+#print(result)
 
 conn.commit()
 conn.close()
